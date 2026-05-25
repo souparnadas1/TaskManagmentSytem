@@ -1,0 +1,50 @@
+﻿@model Taskcategory
+
+@{
+    ViewData["Title"] = "Edit Category";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Edit Category</h5>
+            </div>
+
+            <div class="card-body">
+                <form asp-action="Edit" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    @* Hidden field to carry ID in POST *@
+                    <input asp-for="Id" type="hidden" />
+
+                    <div class="mb-3">
+                        <label class="form-label text-muted">Category ID</label>
+                        <input type="text" class="form-control" value="@Model.Id" disabled />
+                        <small class="text-muted">System generated, read-only</small>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="Name" class="form-label">
+                            Category Name <span class="text-danger">*</span>
+                        </label>
+                        <input asp-for="Name" class="form-control" placeholder="e.g. Work, Personal..." />
+                        <span asp-validation-for="Name" class="text-danger small"></span>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <a asp-action="Index" class="btn btn-outline-secondary w-100">Back</a>
+                        <button type="submit" class="btn btn-warning w-100">Update Category</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

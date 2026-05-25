@@ -56,7 +56,22 @@ namespace TaskManagmentSytem.Controllers
             catch (Exception ex)
             {
                 TempData["Message"] = ex.Message;
-                return RedirectToAction("Create");
+                return RedirectToAction("Edit", new { id = id });
+            }
+        }
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                await _service.DeleteAsync(id);
+                TempData["Message"] = "Category Deleted successfully";
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                TempData["Message"] = ex.Message;
+                return RedirectToAction("Index");
             }
         }
     }
