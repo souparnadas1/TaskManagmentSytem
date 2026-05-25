@@ -37,5 +37,27 @@ namespace TaskManagmentSytem.Controllers
         {
             return View(await _service.getAllAsync());
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var category = await _service.GetByIdAsync(id);
+            return View(category);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(Taskcategory category,int id)
+        {
+            try
+            {
+                await _service.UpdateAsync(category,id);
+                TempData["Message"] = "Category Updated successfully";
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                TempData["Message"] = ex.Message;
+                return RedirectToAction("Create");
+            }
+        }
     }
 }
