@@ -25,7 +25,7 @@ namespace TaskInfastructure.Services
             await _unitOfwork.SaveChangesAsync();
             return Task;
         }
-        public async Task<IEnumerable<Tasks>> getAllAsync(Tasks Task)
+        public async Task<IEnumerable<Tasks>> getAllAsync()
         {
             return await _unitOfwork.TaskRepo.GetAllAsync();
         }

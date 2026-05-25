@@ -1,0 +1,90 @@
+﻿@model Tasks
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+@{
+    ViewData["Title"] = "Edit Task";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-7">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Edit Task</h5>
+            </div>
+
+            <div class="card-body">
+                <form asp-action="Edit" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    @* Hidden fields *@
+                    <input asp-for="Id" type="hidden" />
+                    <input asp-for="CreatedAt" type="hidden" />
+
+                    <div class="mb-3">
+                        <label asp-for="Name" class="form-label">
+                            Task Name <span class="text-danger">*</span>
+                        </label>
+                        <input asp-for="Name" class="form-control"
+                               placeholder="e.g. Fix login bug, Buy groceries..." />
+                        <span asp-validation-for="Name" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="CategoryId" class="form-label">
+                            Category <span class="text-danger">*</span>
+                        </label>
+                        <select asp-for="CategoryId" class="form-select"
+                                asp-items="@(ViewBag.Categories as SelectList)">
+                            <option value="">-- Select Category --</option>
+                        </select>
+                        <span asp-validation-for="CategoryId" class="text-danger small"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="TaskDate" class="form-label">
+                                Task Date <span class="text-danger">*</span>
+                            </label>
+                            <input asp-for="TaskDate" type="date" class="form-control" />
+                            <span asp-validation-for="TaskDate" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="TaskTime" class="form-label">
+                                Task Time <span class="text-danger">*</span>
+                            </label>
+                            <input asp-for="TaskTime" type="time" class="form-control" />
+                            <span asp-validation-for="TaskTime" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-muted">Created At</label>
+                        <input type="text" class="form-control"
+                               value="@Model.CreatedAt.ToString("dd MMM yyyy hh:mm tt")"
+                               disabled />
+                        <small class="text-muted">Auto set on creation, read-only</small>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="TaskDescription" class="form-label">Description</label>
+                        <textarea asp-for="TaskDescription" class="form-control" rows="3"
+                                  placeholder="Add any notes or details..."></textarea>
+                        <span asp-validation-for="TaskDescription" class="text-danger small"></span>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <a asp-action="Index" class="btn btn-outline-secondary w-100">Back</a>
+                        <button type="submit" class="btn btn-warning w-100">Update Task</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
