@@ -41,11 +41,13 @@ namespace TaskInfastructure.Services
                 throw new Exception("Category already exists");
             }
             var result = await _unitOfwork.CategoryRepo.UpdateAsync(category,id);
+            await _unitOfwork.SaveChangesAsync();
             return result;
         }
         public async Task<Taskcategory> DeleteAsync(int id)
         {
             var result = await _unitOfwork.CategoryRepo.DeleteAsync(id);
+            await _unitOfwork.SaveChangesAsync();
             return result;
         }
     }
