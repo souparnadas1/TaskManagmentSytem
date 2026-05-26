@@ -19,7 +19,7 @@ namespace TaskInfastructure.Repository
 
         public async Task<bool> ExistsAsync(Tasks entity)
         {
-            var Result = await _dbcontext.Tasks.AnyAsync(c => c.Name == entity.Name);
+            var Result = await _dbcontext.Tasks.FirstOrDefaultAsync(c => c.Name == entity.Name);
             if (Result != null)
             {
                 return true;

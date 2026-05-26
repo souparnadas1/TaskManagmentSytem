@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using TaskCore.Entity;
 using TaskInfastructure.Services;
 
@@ -17,7 +18,7 @@ namespace TaskManagmentSytem.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            ViewBag.Categories = await _cservice.getAllAsync();
+            ViewBag.Categories = new SelectList(await _cservice.getAllAsync(), "Id", "Name");
             return View();
         }
         [HttpPost]
