@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using TaskCore.Entity;
 using TaskCore.IRepository;
@@ -23,9 +24,15 @@ namespace TaskInfastructure.Repository
             return true;
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public async Task<IEnumerable<T>> GetAllAsync(
+            params Expression<Func<T, object>>[] includes)
         {
-           return await _dbSet.ToListAsync();
+            IQueryable<T> query = _dbSet;
+
+            foreach (var include in includes)
+                query = query.Include(include);
+
+            return await query.ToListAsync();
         }
 
     }

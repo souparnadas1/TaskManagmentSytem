@@ -47,6 +47,7 @@ namespace TaskManagmentSytem.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var category = await _service.GetByIdAsync(id);
+            ViewBag.Categories = new SelectList(await _cservice.getAllAsync(), "Id", "Name");
             return View(category);
         }
         [HttpPost]
