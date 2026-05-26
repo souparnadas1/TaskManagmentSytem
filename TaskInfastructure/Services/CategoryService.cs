@@ -27,7 +27,7 @@ namespace TaskInfastructure.Services
         }
         public async Task<IEnumerable<Taskcategory>> getAllAsync()
         {
-            return await _unitOfwork.CategoryRepo.GetAllAsync(p=>p.categoryName);
+            return await _unitOfwork.CategoryRepo.GetAllAsync();
         }
         public async Task<Taskcategory> GetByIdAsync(int id)
         {
